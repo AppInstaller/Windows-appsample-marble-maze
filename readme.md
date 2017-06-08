@@ -58,18 +58,6 @@ If you downloaded/cloned the MarbleMaze sample from GitHub, go to C++/MarbleMaze
 #### Make code change to access the new path 
 
 Open LoadScreen.cpp file on your code editor and modify the path specified in CreateDecoderFromFilename function to use the new network share path: 
-``` cpp
-    ComPtr<IWICBitmapDecoder> wicBitmapDecoder;
-    DX::ThrowIfFailed(
-        m_wicFactory->CreateDecoderFromFilename(
-            L"Media\\Textures\\loadscreen.png",
-            nullptr,
-            GENERIC_READ,
-            WICDecodeMetadataCacheOnDemand,
-            &wicBitmapDecoder
-            )
-        );
- ```
  ``` cpp
      ComPtr<IWICBitmapDecoder> wicBitmapDecoder;
     DX::ThrowIfFailed(
