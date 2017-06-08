@@ -9,7 +9,7 @@ Follow the instructions below to see how you can build an UWP app that can acces
 1. UWP app - You can fork or download this GitHub sample 
 2. Network share folder - Any shared folder that your target device has access to. We will go through how to create a network share folder below. 
 
-## 1. UWP App 
+## UWP App manifest declaration 
 
 The UWP app that is part of this GitHub sample is a basic 3D game using DirectX. The functionality to access network share during the app's runtime makes a lot of sense to use while building UWP games. Games are usually asset heavy and they go through a lot of churn during game development. Because the app code and assets are decoupled while using this functionality, game developers can independently iterate on the app code and assets. 
 
@@ -19,24 +19,59 @@ To get started:
 1. Either download or clone the GitHub sample
 2. Launch Visual Studio Solution - MarbleMaze_VS2015.sln
 3. Open Package.appxmanifest to open
-4. Add the restricted capability to the manifest as shown below - 
-```xml
-  <Capabilities>
-    <rescap:Capability Name="developmentModeNetwork" />
-  </Capabilities>
-```
-5. Add the 
+4. Add the required namespace and the restricted capability to the manifest as shown below - 
 ```xml
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
          xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
          xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
          IgnorableNamespaces="uap mp rescap">
+ ...
+ ...
+ ...
+<Capabilities>
+  <rescap:Capability Name="developmentModeNetwork" />
+</Capabilities>
 ```
 
+Now we will go ahead and create a network share where we will store the assets that the app will load. 
+
+### Create a network share 
+
+If you already have a network share and your target machine can access that share, then you can skip this section. 
+
+1. Create a new folder on your desktop 
+2. Right-click on the folder and go to Properties and shift to the Sharing tab. 
+3. Click on "Share..." button
+4. Here you can either choose "Everyone" or specify the folks that you want to have access to this folder.
+5. Click "Share" on the bottom of the dialogue prompt
+6. Copy the network share path that starts '\\'
+
+You are done! Now, all we need to do is copy the assets from the app package to the network share and modify the path in the app code to the new network path. 
+
+### UWP App Code changes
+
+#### Copy the assets to the network share folder
+
+If you downloaded/cloned the MarbleMaze sample from GitHub, go to C++/MarbleMaze_VS2015/Media/Textures/ to find some of the assets used in the game. For simplicity, lets only copy the loadscreen.png file to the network share. 
+
+#### Make code change to access the new path 
+
+Open LoadScreen.cpp file on your code editor and modify the path specified in 
+``` cpp
+    ComPtr<IWICBitmapDecoder> wicBitmapDecoder;
+    DX::ThrowIfFailed(
+        m_wicFactory->CreateDecoderFromFilename(
+            L"//scratch2/scratch/cdon/MarbleMaze/Media/Textures/loadscreen.png",
+            nullptr,
+            GENERIC_READ,
+            WICDecodeMetadataCacheOnDemand,
+            &wicBitmapDecoder
+            )
+        );
+ ```
 
 ## Setup required to try packaged apps with network access
-![MarbleMaze app in action](MarbleMaze.png)
 
 This sample is written in C++ and requires some experience with graphics programming and DirectX. 
 Complete content that examines this code can be found at 
