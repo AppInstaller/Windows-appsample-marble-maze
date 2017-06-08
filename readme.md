@@ -45,7 +45,7 @@ If you already have a network share and your target machine can access that shar
 3. Click on "Share..." button
 4. Here you can either choose "Everyone" or specify the folks that you want to have access to this folder.
 5. Click "Share" on the bottom of the dialogue prompt
-6. Copy the network share path that starts '\\'
+6. Copy the network share path that starts '\\\'
 
 You are done! Now, all we need to do is copy the assets from the app package to the network share and modify the path in the app code to the new network path. 
 
