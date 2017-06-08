@@ -1,7 +1,7 @@
 
 # Build an UWP app with runtime access to network shares
 
-With the Windows 10 Creators Update, we are enabling developers to create UWP apps that can access network shares during the apps runtime when the device is in developer mode. This feature is built in an effort to make it easier for our developers to collaborate with other developers. 
+With the Windows 10 Creators Update, we are enabling developers to create UWP apps that can access network shares during the apps runtime when the device is in developer mode. This feature is built in an effort to make it easier for our developers to collaborate with other developers and designers alike. 
 
 Follow the instructions below to see how you can build an UWP app that can access network shares. In this process, the app code is decoupled from the assets. The assets sit on a network share and the app code is packaged with the app. While you deploy the app code once, you are free to modify the assets as you wish. When the app is launched, the app will pull the latest assets from the network folder. 
 
